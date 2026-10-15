@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sisila House</title>
+  <meta name="description" content="Sisila House: a minimalist tropical courtyard home for Sri Lanka. Floor plan, 3D model and design notes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7" /><path d="M6 10v9h12v-9" /><rect x="10" y="13" width="4" height="4" /></svg>
+      </span>
+      <span class="brand-name">Plan2Home3D</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="project">Sisila House</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="plan" aria-selected="true">Floor Plan</button>
+      <button role="tab" data-tab="model">3D Model</button>
+      <button role="tab" data-tab="notes">Design Notes</button>
+    </nav>
+    <button class="icon-btn" id="theme-toggle" title="Toggle light / dark" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- Floor plan -->
+    <section class="panel" id="panel-plan" role="tabpanel">
+      <div class="plan-stage">
+        <div class="paper" id="plan-paper"></div>
+      </div>
+      <div class="toolbar">
+        <button class="tb" id="zoom-out" title="Zoom out">−</button>
+        <button class="tb" id="zoom-fit" title="Fit sheet">Fit</button>
+        <button class="tb" id="zoom-in" title="Zoom in">+</button>
+        <span class="tb-sep"></span>
+        <button class="tb wide" id="print-plan" title="Print or save as PDF (A3 landscape)">Print / PDF</button>
+        <button class="tb wide" id="download-svg" title="Download the drawing as SVG">SVG</button>
+      </div>
+      <p class="hint">Scroll to zoom · drag to pan</p>
+    </section>
+
+    <!-- 3D model -->
+    <section class="panel" id="panel-model" role="tabpanel" hidden>
+      <div class="viewport" id="viewport">
+        <div class="loading" id="loading">Building the model…</div>
+      </div>
+      <aside class="controls" id="controls">
+        <div class="group">
+          <h3>Views</h3>
+          <div class="chips" id="views">
+            <button data-view="aerial" class="on">Aerial</button>
+            <button data-view="garden">Garden</button>
+            <button data-view="entry">Entry</button>
+            <button data-view="courtyard">Courtyard</button>
+            <button data-view="studio">Studio</button>
+            <button data-view="top">Top</button>
+          </div>
+        </div>
+        <div class="group">
+          <h3>Roof</h3>
+          <div class="seg" id="roof-mode">
+            <button data-mode="solid" class="on">Solid</button>
+            <button data-mode="ghost">Ghost</button>
+            <button data-mode="off">Cut-away</button>
+          </div>
+        </div>
+        <div class="group">
+          <h3>Sun path <span class="muted">· 7° N</span></h3>
+          <label class="slider">
+            <span>Month</span>
+            <input type="range" id="sun-month" min="1" max="12" step="1" value="3">
+            <output id="sun-month-out">Mar</output>
+          </label>
+          <label class="slider">
+            <span>Time</span>
+            <input type="range" id="sun-hour" min="5.5" max="18.75" step="0.25" value="10.5">
+            <output id="sun-hour-out">10:30</output>
+          </label>
+          <p class="sun-readout" id="sun-readout"></p>
+          <label class="check"><input type="checkbox" id="shadows" checked> Shadows</label>
+        </div>
+        <div class="group actions">
+          <button class="primary" id="walk">Walk through</button>
+          <div class="row">
+            <button id="snapshot">PNG</button>
+            <button id="export-glb">GLB model</button>
+          </div>
+        </div>
+      </aside>
+      <div class="walk-hint" id="walk-hint" hidden>W A S D to move · Shift to stroll faster · move or drag the mouse to look · Esc to exit</div>
+    </section>
+
+    <!-- Design notes -->
+    <section class="panel scroll" id="panel-notes" role="tabpanel" hidden>
+      <article class="notes" id="notes"></article>
+    </section>
+  </main>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
